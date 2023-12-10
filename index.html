@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <title>Doing animations I guess</title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      body {
+        background: linear-gradient(to bottom, rgb(0, 44, 45) 3%, black 50%);
+        color: white;
+        font-family: 'Consolas';
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+      }
+
+      h2 {
+        animation-fill-mode: forwards;
+        opacity: 0;
+      }
+      a {
+        animation-fill-mode: forwards;
+        opacity: 0;
+      }
+      a:hover {
+        color: grey;
+      }
+      a:visited {
+        color: grey;
+      }
+      a:active {
+        color: grey;
+      }
+      .visible {
+        opacity: 1;
+      }
+      #ricsirogi {
+        text-align: center;
+        animation: fadein 0.5s;
+      }
+      #h2-container {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+      }
+      #h1-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      #menu-item-container {
+        background-color: rgb(0, 44, 45);
+        display: flex;
+        width: 100%;
+        height: 30px;
+        gap: 10px;
+        padding-left: 10px;
+        padding-top: 3px;
+      }
+      @keyframes fadein {
+        from {
+          opacity: 0;
+          transform: translateY(1000%);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0%);
+        }
+      }
+      @keyframes fadeinfrombottom {
+        from {
+          opacity: 0;
+          transform: translateY(-100%);
+          color: black;
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0%);
+          color: white;
+        }
+      }
+      @keyframes fadeinfromright {
+        from {
+          opacity: 0;
+          transform: translateX(1000%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="menu-item-container">
+      <a href="https://github.com/ricsirogi" id="github-menu-item" class="menu-item">github</a>
+      <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" id="resume-menu-item" class="menu-item">resume</a>
+      <a href="https://www.youtube.com/channel/UCLPQ5PlQwEw7z8YkVDRnq9g" id="youtube-menu-item" class="menu-item">youtube</a>
+    </div>
+    <div id="h1-container">
+      <h1 id="ricsirogi">ricsirogi</h1>
+      <div id="h2-container">
+        <h2 id="this">this</h2>
+        <h2 id="is">is</h2>
+        <h2 id="my">my</h2>
+        <h2 id="name">name</h2>
+      </div>
+    </div>
+
+    <script>
+      const interval = 500
+
+      let thisElement = document.getElementById('this')
+      let isElement = document.getElementById('is')
+      let myElement = document.getElementById('my')
+      let nameElement = document.getElementById('name')
+
+      let githubMenuElement = document.getElementById('github-menu-item')
+      let resumeMenuElement = document.getElementById('resume-menu-item')
+      let youtubeMenuElement = document.getElementById('youtube-menu-item')
+
+      let thisIsMyNameArray = [thisElement, isElement, myElement, nameElement]
+      let menuArray = [githubMenuElement, resumeMenuElement, youtubeMenuElement]
+      document.getElementById('ricsirogi').addEventListener('animationend', (event) => {
+        thisIsMyNameArray.forEach((element, index) => {
+          setTimeout(() => {
+            element.classList.add('visible')
+            element.style.animation = 'fadeinfrombottom 0.5s'
+          }, index * interval)
+        })
+      })
+      document.getElementById('name').addEventListener('animationend', (event) => {
+        menuArray.forEach((element, index) => {
+          setTimeout(() => {
+            element.classList.add('visible')
+            element.style.animation = 'fadeinfromright 0.5s'
+          }, index * interval)
+        })
+      })
+    </script>
+  </body>
+</html>

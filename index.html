@@ -3,130 +3,21 @@
   <head>
     <title>Doing animations I guess</title>
     <meta charset="utf-8" />
-    <style type="text/css">
-      body {
-        background: linear-gradient(to bottom, rgb(0, 44, 45) 3%, black 50%);
-        color: white;
-        font-family: 'Consolas';
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-      }
-      h1 {
-        font-size: 80px;
-        animation-fill-mode: forwards;
-      }
-      h2 {
-        font-size: 40px;
-        animation-fill-mode: forwards;
-        opacity: 0;
-      }
-      a {
-        font-size: 25px;
-        animation-fill-mode: forwards;
-        opacity: 0;
-      }
-      a:hover {
-        color: grey;
-      }
-      a:visited {
-        color: grey;
-      }
-      a:active {
-        color: grey;
-      }
-      .ricsirogi-background {
-        opacity: 0.1;
-        font-size: 1800%;
-      }
-      .visible {
-        opacity: 1;
-      }
-      .half-visible {
-        opacity: 0.5;
-      }
-      .not-visible {
-        opacity: 0;
-      }
-      #ricsirogi {
-        text-align: center;
-        animation: fadein 0.25s;
-      }
-      #h2-container {
-        display: flex;
-        justify-content: center;
-        gap: 70px;
-      }
-      #h1-container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      #menu-item-container {
-        background-color: rgb(0, 44, 45);
-        display: flex;
-        width: 100%;
-        height: 30px;
-        gap: 20px;
-        padding-left: 10px;
-        padding-top: 3px;
-      }
-      @keyframes fadeback {
-        from {
-          opacity: 1;
-          font-size: 500%;
-        }
-        to {
-          opacity: 0.1;
-          font-size: 1800%;
-        }
-      }
-      @keyframes fadein {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-      @keyframes fadeout {
-        from {
-          opacity: 1;
-        }
-        to {
-          opacity: 0;
-        }
-      }
-      @keyframes fadeinfrombottom {
-        from {
-          opacity: 0;
-          transform: translateY(1000%);
-          color: black;
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0%);
-          color: white;
-        }
-      }
-      @keyframes fadeinfromright {
-        from {
-          opacity: 0;
-          transform: translateX(1000%);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0%);
-        }
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
     <div id="menu-item-container">
       <a href="https://github.com/ricsirogi" id="github-menu-item" class="menu-item">github</a>
       <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" id="resume-menu-item" class="menu-item">resume</a>
       <a href="https://www.youtube.com/channel/UCLPQ5PlQwEw7z8YkVDRnq9g" id="youtube-menu-item" class="menu-item">youtube</a>
+      <p id="aboutme-menu-item" class="menu-item p-menu-item" style="opacity: 0">about me</p>
+      <p id="projects-menu-item" class="menu-item p-menu-item" style="opacity: 0">projects</p>
+    </div>
+    <div id="aboutme-box" style="opacity: 0">
+      <p style="font-size: 20px">
+        I am a Hungarian hobby programmer who likes making fun and or useful applications and games, mainly on python, but I want to start learning html, javascript and c++ as well. I am still in
+        middle school, but I hope I'll get into a good university and afterwards I want to work as a programmer/software developer!
+      </p>
     </div>
     <div id="h1-container">
       <h1 id="ricsirogi">ricsirogi</h1>
@@ -137,81 +28,7 @@
         <h2 id="name">name</h2>
       </div>
     </div>
-
-    <script>
-      const thisIsMyNameInterval = 50
-      const menuInterval = 100
-
-      let ricsirogi = document.getElementById('ricsirogi')
-
-      let thisElement = document.getElementById('this')
-      let isElement = document.getElementById('is')
-      let myElement = document.getElementById('my')
-      let nameElement = document.getElementById('name')
-
-      let githubMenuElement = document.getElementById('github-menu-item')
-      let resumeMenuElement = document.getElementById('resume-menu-item')
-      let youtubeMenuElement = document.getElementById('youtube-menu-item')
-
-      let thisIsMyNameArray = [thisElement, isElement, myElement, nameElement]
-      let menuArray = [githubMenuElement, resumeMenuElement, youtubeMenuElement]
-
-      // this is my name fade in
-      ricsirogi.addEventListener('animationend', (event) => {
-        if (event.animationName === 'fadein') {
-          thisIsMyNameArray.forEach((element, index) => {
-            setTimeout(() => {
-              element.classList.add('visible')
-              element.style.animation = 'fadeinfrombottom 1s'
-            }, index * thisIsMyNameInterval)
-          })
-        }
-      })
-
-      // menu fade in
-      thisIsMyNameArray[thisIsMyNameArray.length - 1].addEventListener('animationend', (event) => {
-        menuArray.forEach((element, index) => {
-          setTimeout(() => {
-            element.classList.add('visible')
-            element.style.animation = 'fadeinfromright 0.5s'
-          }, index * menuInterval)
-        })
-      })
-
-      // this is my name fade out
-      menuArray[menuArray.length - 1].addEventListener('animationend', (event) => {
-        if (event.animationName === 'fadeinfromright') {
-          thisIsMyNameArray.forEach((element, index) => {
-            setTimeout(() => {
-              element.style.animation = 'fadeout 0.5s'
-              element.classList.remove('visible')
-              element.classList.add('not-visible')
-            }, index * thisIsMyNameInterval)
-          })
-        }
-      })
-
-      // ricsirogi fade back
-      thisIsMyNameArray[thisIsMyNameArray.length - 1].addEventListener('animationend', (event) => {
-        if (event.animationName === 'fadeout') {
-        }
-      })
-
-      // ricsirogi fade back with website text
-      thisIsMyNameArray[thisIsMyNameArray.length - 1].addEventListener('animationend', (event) => {
-        if (event.animationName === 'fadeout') {
-          const ricsirogiTextToAdd = "'s website"
-          const typeSpeed = 1500 / ricsirogiTextToAdd.length / 1.5
-          ricsirogiTextToAdd.split('').forEach((element, index) => {
-            setTimeout(() => {
-              ricsirogi.innerHTML += element
-            }, index * typeSpeed)
-          })
-          ricsirogi.classList.remove('visible')
-          ricsirogi.classList.add('ricsirogi-background')
-          ricsirogi.style.animation = 'fadeback 1.5s'
-        }
-      })
-    </script>
+    <script src="animation.js"></script>
+    <script src="menuLogic.js"></script>
   </body>
 </html>
